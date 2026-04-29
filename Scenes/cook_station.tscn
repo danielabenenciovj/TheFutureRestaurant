@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://h2au6tfu3gi5"]
+
+[ext_resource type="Texture2D" uid="uid://d3ubdc20q6g5f" path="res://Assets/my-first-little-piece-of-pixel-art-a-baby-lil-oven-v0-gz8bz6ffh8191.webp" id="1_hta65"]
+[ext_resource type="Script" uid="uid://u3nrp5tamf4f" path="res://Scripts/cook_station.gd" id="1_mh33b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yn0fj"]
+size = Vector2(252, 260)
+
+[node name="CookStation" type="Area2D" unique_id=2052939998]
+script = ExtResource("1_mh33b")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=142593875]
+texture = ExtResource("1_hta65")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1350487239]
+position = Vector2(-1, -17)
+shape = SubResource("RectangleShape2D_yn0fj")
+
+[node name="Timer" type="Timer" parent="." unique_id=1582402719]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dpp0fgvwosgwe"]
+
+[ext_resource type="Script" uid="uid://ch65245c2gd3i" path="res://Scripts/cleaning_station.gd" id="1_tmji2"]
+[ext_resource type="Texture2D" uid="uid://dxb7d2ruacbmi" path="res://Assets/lavavajillas.png" id="2_3bflk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bflk"]
+size = Vector2(90, 120)
+
+[node name="CleaningStation" type="Area2D" unique_id=70017856]
+script = ExtResource("1_tmji2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=582291291]
+position = Vector2(3.750004, 0)
+scale = Vector2(0.18066408, 0.23437499)
+texture = ExtResource("2_3bflk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1160640619]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_3bflk")
+
+[node name="Timer" type="Timer" parent="." unique_id=868319346]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

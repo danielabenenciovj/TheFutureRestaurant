@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dp07qu1a4gjp4"]
+
+[ext_resource type="Script" uid="uid://en730fti0t1g" path="res://Scripts/robot_waiter.gd" id="1_x4a8y"]
+[ext_resource type="Texture2D" uid="uid://u3rvd4j6r005" path="res://icon.svg" id="2_oewrc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oewrc"]
+size = Vector2(125, 127)
+
+[node name="RobotWaiter" type="CharacterBody2D" unique_id=640933614 groups=["Waiters"]]
+script = ExtResource("1_x4a8y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=591466475]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_oewrc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=923311250]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1310818974]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574946856]
+texture = ExtResource("2_oewrc")
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bp5qcmcdu1bh6"]
+
+[ext_resource type="PackedScene" uid="uid://dp07qu1a4gjp4" path="res://Scenes/robot_waiter.tscn" id="1_lija3"]
+[ext_resource type="PackedScene" uid="uid://h2au6tfu3gi5" path="res://Scenes/cook_station.tscn" id="2_8roya"]
+[ext_resource type="PackedScene" uid="uid://djsnsewwplhwj" path="res://Scenes/table.tscn" id="3_b3ecl"]
+[ext_resource type="PackedScene" uid="uid://dpp0fgvwosgwe" path="res://Scenes/cleaning_station.tscn" id="4_ny0fp"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
+vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 960, 0, 960, 480, 0, 480)])
+
+[node name="MainLVL" type="Node2D" unique_id=679171312]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1203808199]
+navigation_polygon = SubResource("NavigationPolygon_a3p8x")
+
+[node name="RobotWaiter" parent="." unique_id=640933614 instance=ExtResource("1_lija3")]
+position = Vector2(480, 240)
+scale = Vector2(0.5, 0.5)
+
+[node name="CookStation" parent="." unique_id=2052939998 instance=ExtResource("2_8roya")]
+position = Vector2(150, 180)
+scale = Vector2(0.2, 0.2)
+
+[node name="Table" parent="." unique_id=1328093088 instance=ExtResource("3_b3ecl")]
+position = Vector2(280, 360)
+scale = Vector2(0.6, 0.6)
+
+[node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
+position = Vector2(670, 300)
+scale = Vector2(0.5, 0.5)

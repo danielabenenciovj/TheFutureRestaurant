@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://djsnsewwplhwj"]
+
+[ext_resource type="Script" uid="uid://ctdhujtc4dcqy" path="res://Scripts/table.gd" id="1_4ppvu"]
+[ext_resource type="Texture2D" uid="uid://du48cvjldgc3h" path="res://Assets/divexfre-pixel-art-9774391.png" id="1_ix8et"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ix8et"]
+size = Vector2(100, 120)
+
+[node name="Table" type="Area2D" unique_id=1328093088]
+script = ExtResource("1_4ppvu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322717735]
+position = Vector2(1.66893e-06, 0)
+scale = Vector2(0.024414064, 0.029296877)
+texture = ExtResource("1_ix8et")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1245032086]
+shape = SubResource("RectangleShape2D_ix8et")
+
+[node name="Timer" type="Timer" parent="." unique_id=7462801]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
