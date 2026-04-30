@@ -39,6 +39,12 @@ func interact(waiter: CharacterBody2D) -> void:
 	# CASO 3: Recoger el plato sucio
 	elif waiter.actual_state == waiter.HandState.EMPTY and has_dirty_dish:
 		print("Mesero recogió el plato sucio. La mesa está limpia.")
+		var ui = get_tree().get_first_node_in_group("UI_GROUP")
+		if ui:
+			ui.Add_Money(100)
+			print("Plata entregada con éxito")
+		else:
+			print("Error: No encontré la UI. ¿Te olvidaste de ponerla en el grupo?")
 		
 		# El mesero ahora carga el plato sucio
 		waiter.actual_state = waiter.HandState.DIRTY_DISH

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://h2au6tfu3gi5" path="res://Scenes/cook_station.tscn" id="2_8roya"]
 [ext_resource type="PackedScene" uid="uid://djsnsewwplhwj" path="res://Scenes/table.tscn" id="3_b3ecl"]
 [ext_resource type="PackedScene" uid="uid://dpp0fgvwosgwe" path="res://Scenes/cleaning_station.tscn" id="4_ny0fp"]
+[ext_resource type="Script" uid="uid://d23plxicfohyd" path="res://Scripts/ui_money_timer.gd" id="5_rx1jt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -30,3 +31,25 @@ scale = Vector2(0.6, 0.6)
 [node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
 position = Vector2(670, 300)
 scale = Vector2(0.5, 0.5)
+
+[node name="UIMoney-Timer" type="VisibleOnScreenEnabler2D" parent="." unique_id=1266363139 groups=["UI_GROUP"]]
+position = Vector2(34, 32)
+rect = Rect2(-25, -23, 941, 461)
+script = ExtResource("5_rx1jt")
+
+[node name="Timer" type="Timer" parent="UIMoney-Timer" unique_id=1362334598]
+autostart = true
+
+[node name="Money" type="Label" parent="UIMoney-Timer" unique_id=1264293572]
+offset_left = -4.0
+offset_top = -14.0
+offset_right = 102.0
+offset_bottom = 29.0
+text = "0"
+
+[node name="Watch" type="Label" parent="UIMoney-Timer" unique_id=616068137]
+offset_left = 811.0
+offset_top = -12.0
+offset_right = 896.0
+offset_bottom = 26.0
+text = "3:00"
