@@ -20,7 +20,22 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var mouse_pos = get_global_mouse_position()
 		nav_agent.target_position = get_global_mouse_position()
+		
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = mouse_pos
+		query.collide_with_areas = true
+		
+		var result = space_state.intersect_point(query)
+		
+		if result.size() > 0:
+			var hit_object = result[0].collider
+			if hit_object.is_in_group("Tables"): # Asegúrate que tus mesas estén en el grupo "Tables"
+				target_interactable = hit_object
+		else:
+			target_interactable = null
 
 func _physics_process(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():

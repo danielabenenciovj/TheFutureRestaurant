@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @export var speed: float = 150.0
+@export var max_wait_time: float = 20.0 # Tiempo máximo que espera antes de irse
+var wait_timer: float = 0.0
+var waiting_for_order: bool = false
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var search_timer: float = 0.0
 
@@ -33,6 +36,12 @@ func find_empty_table() -> void:
 			return
 
 func _physics_process(delta: float) -> void:
+	if waiting_for_order:
+		wait_timer += delta
+		if wait_timer >= max_wait_time:
+			waiting_for_order = false
+			leave_restaurant() 
+			return
 	if current_state == CustomerState.AT_TABLE:
 		return
 		
@@ -73,6 +82,7 @@ func _on_navigation_agent_2d_navigation_finished() -> void:
 	# Si llegó a la mesa
 		if current_state == CustomerState.LOOKING_FOR_TABLE and target_table != null:
 				current_state = CustomerState.AT_TABLE
+				waiting_for_order = true
 				target_table.seat_customer(self) 
 		
 				$CollisionShape2D.set_deferred("disabled", true)
@@ -84,10 +94,24 @@ func _on_navigation_agent_2d_navigation_finished() -> void:
 		
 		elif current_state == CustomerState.LEAVING:
 			queue_free()
+			
+func take_order() -> void:
+	waiting_for_order = false
+	wait_timer = 0.0
 
 # Esta función la va a llamar la mesa cuando termine de comer
 func leave_restaurant() -> void:
+	# Si el cliente tiene una mesa asignada, hay que avisar que se va
+	if target_table != null:
+		target_table.is_occupied = false
+		target_table.has_customer_waiting = false
+		target_table.current_customer = null
+		target_table = null # Quitamos la referencia
+	
 	current_state = CustomerState.LEAVING
+	$CollisionShape2D.set_deferred("disabled", true)
+	nav_agent.avoidance_enabled = false
+	nav_agent.target_position = spawn_position
 	
 	# Aseguramos que su cuerpo físico siga desactivado
 	$CollisionShape2D.set_deferred("disabled", true)

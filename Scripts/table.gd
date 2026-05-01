@@ -21,55 +21,68 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			get_viewport().set_input_as_handled()
 
 func interact(waiter: CharacterBody2D) -> void:
-	# CASO 1: Tomar la orden
-	if waiter.actual_state == waiter.HandState.EMPTY and has_customer_waiting:
-		waiter.actual_state = waiter.HandState.ORDER
-		waiter.active_table = self # NUEVO: El mesero anota que esta orden es de esta mesa
-		
-		has_customer_waiting = false
-		is_waiting_for_food = true
-		print("Orden tomada. La mesa espera su comida.")
-		
-	# CASO 2: Entregar la comida
-	# NUEVO: Ahora además verificamos que el plato que trae sea para ESTA mesa
-	elif waiter.actual_state == waiter.HandState.DISH_READY and is_waiting_for_food and waiter.active_table == self:
-		print("¡Plato correcto entregado!")
-		waiter.actual_state = waiter.HandState.EMPTY
-		waiter.active_table = null # NUEVO: El mesero borra la etiqueta porque ya cumplió
-		
-		is_waiting_for_food = false
-		is_eating = true
-		eat_timer.start()
-		
-	# CASO 3: Recoger plato sucio (Acá no importa de quién era)
-	elif waiter.actual_state == waiter.HandState.EMPTY and has_dirty_dish:
+	# 1. PRIORIDAD: Si hay plato sucio, el camarero debe limpiarlo primero 
+	# (o esto impedirá que se siente gente nueva)
+	if has_dirty_dish and waiter.actual_state == waiter.HandState.EMPTY:
 		print("Mesero recogió el plato sucio.")
 		waiter.actual_state = waiter.HandState.DIRTY_DISH
 		has_dirty_dish = false
-		is_occupied = false 
-		var ui = get_tree().get_first_node_in_group("UI_GROUP")
-		if ui:
-			ui.Add_Money(100)
-			print("Plata entregada con éxito")
-		else:
-			print("Error: No encontré la UI. ¿Te olvidaste de ponerla en el grupo?")
+		is_occupied = false
+		has_customer_waiting = false
+		is_waiting_for_food = false
+		current_customer = null 
 		
-	elif is_eating:
-		print("Shh... el cliente está comiendo.")
+		var ui = get_tree().get_first_node_in_group("UI_GROUP")
+		if ui: ui.Add_Money(100)
+		return # Salimos para evitar que intente hacer otra acción en el mismo frame
+
+	# 2. SEGUNDA PRIORIDAD: Tomar la orden
+	if has_customer_waiting and waiter.actual_state == waiter.HandState.EMPTY:
+		if current_customer != null:
+			current_customer.take_order()
+		
+		waiter.actual_state = waiter.HandState.ORDER
+		waiter.active_table = self
+		has_customer_waiting = false
+		is_waiting_for_food = true
+		print("Orden tomada.")
+		return
+
+	# 3. TERCERA PRIORIDAD: Entregar comida
+	if is_waiting_for_food and waiter.actual_state == waiter.HandState.DISH_READY and waiter.active_table == self:
+		print("¡Plato entregado!")
+		waiter.actual_state = waiter.HandState.EMPTY
+		waiter.active_table = null 
+		is_waiting_for_food = false
+		is_eating = true
+		eat_timer.start()
+		return
+
+	# Si no se cumple nada de lo anterior
+	if is_eating:
+		print("El cliente está comiendo...")
 	else:
-		print("Acción no válida en la mesa.")
+		print("No hay nada que hacer en esta mesa ahora mismo.")
 		
 func _on_timer_timeout() -> void:
 	is_eating = false
 	has_dirty_dish = true
-	print("El cliente terminó de comer. Dejó un plato sucio y se va.")
+	# Importante: No ponemos is_occupied = false aquí aún, 
+	# porque la mesa sigue ocupada por un plato sucio.
 	
 	if current_customer != null:
 		current_customer.leave_restaurant()
 		current_customer = null 
+	print("El cliente se fue. Mesa sucia.") 
 	
 func seat_customer(customer_node: CharacterBody2D) -> void:
+	# RESETEO DE SEGURIDAD
+	is_eating = false
+	has_dirty_dish = false
+	is_waiting_for_food = false
+	
+	# ASIGNACIÓN NUEVA
 	is_occupied = true
 	has_customer_waiting = true
-	current_customer = customer_node # Guardamos la referencia
-	print("Un cliente se ha sentado. Esperando al mesero para pedir.")
+	current_customer = customer_node 
+	print("Mesa activada para nuevo cliente: ", customer_node.name)
