@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djsnsewwplhwj"]
 
 [ext_resource type="Script" uid="uid://ctdhujtc4dcqy" path="res://Scripts/table.gd" id="1_4ppvu"]
-[ext_resource type="Texture2D" uid="uid://du48cvjldgc3h" path="res://Assets/divexfre-pixel-art-9774391.png" id="1_ix8et"]
+[ext_resource type="Texture2D" uid="uid://c4jgphhp6ev6f" path="res://Assets/Table.png" id="2_4ppvu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix8et"]
 size = Vector2(81, 86)
@@ -11,9 +11,9 @@ z_index = 1
 script = ExtResource("1_4ppvu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322717735]
-position = Vector2(1.66893e-06, 0)
-scale = Vector2(0.024414064, 0.029296877)
-texture = ExtResource("1_ix8et")
+position = Vector2(1.5000019, 7.500002)
+scale = Vector2(0.56249994, 0.59027773)
+texture = ExtResource("2_4ppvu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1245032086]
 position = Vector2(1.5, 7)
