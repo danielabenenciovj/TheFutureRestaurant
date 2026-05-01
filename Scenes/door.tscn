@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bactpmiqnsluu"]
+
+[ext_resource type="Script" uid="uid://dq08b4ita0h8b" path="res://Scripts/door.gd" id="1_p0e35"]
+[ext_resource type="Texture2D" uid="uid://byjicl2sonqv4" path="res://Assets/puerta.png" id="1_w6aom"]
+
+[node name="Door" type="Node2D" unique_id=1822327672]
+script = ExtResource("1_p0e35")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1357230599]
+position = Vector2(7.6293945e-06, 2)
+scale = Vector2(0.484375, 0.4453125)
+texture = ExtResource("1_w6aom")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1398009197]
+position = Vector2(11, 200)

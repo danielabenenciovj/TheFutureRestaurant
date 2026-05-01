@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cdcl2uucb4r02"]
+
+[ext_resource type="Script" uid="uid://cftfpv0vokpg3" path="res://Scripts/customer.gd" id="1_fp685"]
+[ext_resource type="Texture2D" uid="uid://ci2cuyfyfwyh2" path="res://Assets/12.png" id="2_7c3kf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0v30w"]
+size = Vector2(22, 24)
+
+[node name="Customer" type="CharacterBody2D" unique_id=1557506072]
+script = ExtResource("1_fp685")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1645261611]
+avoidance_enabled = true
+radius = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=300047911]
+position = Vector2(-1.0000005, 32)
+rotation = 3.1415925
+shape = SubResource("RectangleShape2D_0v30w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=831507786]
+position = Vector2(0, 1)
+scale = Vector2(0.08652353, 0.06964006)
+texture = ExtResource("2_7c3kf")
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://bp5qcmcdu1bh6"]
 
+[ext_resource type="Script" uid="uid://bxdkdewl1s3vx" path="res://Scripts/main_lvl.gd" id="1_44y1p"]
 [ext_resource type="PackedScene" uid="uid://dp07qu1a4gjp4" path="res://Scenes/robot_waiter.tscn" id="1_lija3"]
 [ext_resource type="PackedScene" uid="uid://h2au6tfu3gi5" path="res://Scenes/cook_station.tscn" id="2_8roya"]
 [ext_resource type="PackedScene" uid="uid://djsnsewwplhwj" path="res://Scenes/table.tscn" id="3_b3ecl"]
 [ext_resource type="PackedScene" uid="uid://dpp0fgvwosgwe" path="res://Scenes/cleaning_station.tscn" id="4_ny0fp"]
 [ext_resource type="Script" uid="uid://d23plxicfohyd" path="res://Scripts/ui_money_timer.gd" id="5_rx1jt"]
+[ext_resource type="PackedScene" uid="uid://cdcl2uucb4r02" path="res://Scenes/customer.tscn" id="6_np6i8"]
+[ext_resource type="PackedScene" uid="uid://bactpmiqnsluu" path="res://Scenes/door.tscn" id="8_k2kfd"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -12,28 +15,39 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 960, 0, 960, 480, 0, 480)])
 
 [node name="MainLVL" type="Node2D" unique_id=679171312]
+script = ExtResource("1_44y1p")
+customer_scene = ExtResource("6_np6i8")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1203808199]
 navigation_polygon = SubResource("NavigationPolygon_a3p8x")
 
 [node name="RobotWaiter" parent="." unique_id=640933614 instance=ExtResource("1_lija3")]
-position = Vector2(480, 240)
+z_index = 1
+position = Vector2(276, 144)
 scale = Vector2(0.5, 0.5)
 
 [node name="CookStation" parent="." unique_id=2052939998 instance=ExtResource("2_8roya")]
-position = Vector2(150, 180)
+position = Vector2(650, 109.00001)
 scale = Vector2(0.2, 0.2)
 
 [node name="Table" parent="." unique_id=1328093088 instance=ExtResource("3_b3ecl")]
-position = Vector2(280, 360)
+position = Vector2(707, 355)
+scale = Vector2(0.6, 0.6)
+
+[node name="Table2" parent="." unique_id=1178311839 instance=ExtResource("3_b3ecl")]
+position = Vector2(160, 361.00003)
+scale = Vector2(0.6, 0.6)
+
+[node name="Table3" parent="." unique_id=305552928 instance=ExtResource("3_b3ecl")]
+position = Vector2(441, 354.00003)
 scale = Vector2(0.6, 0.6)
 
 [node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
-position = Vector2(670, 300)
+position = Vector2(910, 108)
 scale = Vector2(0.5, 0.5)
 
 [node name="UIMoney-Timer" type="VisibleOnScreenEnabler2D" parent="." unique_id=1266363139 groups=["UI_GROUP"]]
-position = Vector2(34, 32)
+position = Vector2(34, 33)
 rect = Rect2(-25, -23, 941, 461)
 script = ExtResource("5_rx1jt")
 
@@ -48,8 +62,18 @@ offset_bottom = 29.0
 text = "0"
 
 [node name="Watch" type="Label" parent="UIMoney-Timer" unique_id=616068137]
-offset_left = 811.0
-offset_top = -12.0
-offset_right = 896.0
-offset_bottom = 26.0
+offset_left = 824.0
+offset_top = -13.0
+offset_right = 909.0
+offset_bottom = 25.0
 text = "3:00"
+
+[node name="Door" parent="." unique_id=1822327672 instance=ExtResource("8_k2kfd")]
+position = Vector2(56, 97)
+scale = Vector2(0.3, 0.3)
+
+[node name="CustomerSpawnTimer" type="Timer" parent="." unique_id=1239680232]
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="CustomerSpawnTimer" to="." method="_on_customer_spawn_timer_timeout"]

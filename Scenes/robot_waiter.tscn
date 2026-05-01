@@ -1,23 +1,74 @@
 [gd_scene format=3 uid="uid://dp07qu1a4gjp4"]
 
 [ext_resource type="Script" uid="uid://en730fti0t1g" path="res://Scripts/robot_waiter.gd" id="1_x4a8y"]
-[ext_resource type="Texture2D" uid="uid://u3rvd4j6r005" path="res://icon.svg" id="2_oewrc"]
+[ext_resource type="Texture2D" uid="uid://r3fornsh2qqg" path="res://Assets/Walter-Sheet-300.png" id="2_oewrc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oewrc"]
-size = Vector2(125, 127)
+size = Vector2(125, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40yqy"]
+atlas = ExtResource("2_oewrc")
+region = Rect2(0, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1chls"]
+atlas = ExtResource("2_oewrc")
+region = Rect2(144, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqv56"]
+atlas = ExtResource("2_oewrc")
+region = Rect2(288, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssr73"]
+atlas = ExtResource("2_oewrc")
+region = Rect2(432, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8crw5"]
+atlas = ExtResource("2_oewrc")
+region = Rect2(576, 0, 144, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8ycy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40yqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1chls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqv56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssr73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8crw5")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}]
 
 [node name="RobotWaiter" type="CharacterBody2D" unique_id=640933614 groups=["Waiters"]]
 script = ExtResource("1_x4a8y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=591466475]
-position = Vector2(0.5, -0.5)
+z_index = 1
+position = Vector2(-0.5, 39)
 shape = SubResource("RectangleShape2D_oewrc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=923311250]
+position = Vector2(0, -1.0000001)
+scale = Vector2(1.4375, 1.4765624)
+sprite_frames = SubResource("SpriteFrames_a8ycy")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.7529151
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1310818974]
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574946856]
-texture = ExtResource("2_oewrc")
+avoidance_enabled = true
+radius = 30.0
+max_speed = 300.0
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

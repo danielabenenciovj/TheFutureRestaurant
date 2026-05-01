@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://du48cvjldgc3h" path="res://Assets/divexfre-pixel-art-9774391.png" id="1_ix8et"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix8et"]
-size = Vector2(100, 120)
+size = Vector2(81, 86)
 
-[node name="Table" type="Area2D" unique_id=1328093088]
+[node name="Table" type="Area2D" unique_id=1328093088 groups=["Tables"]]
+z_index = 1
 script = ExtResource("1_4ppvu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322717735]
@@ -15,11 +16,15 @@ scale = Vector2(0.024414064, 0.029296877)
 texture = ExtResource("1_ix8et")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1245032086]
+position = Vector2(1.5, 7)
 shape = SubResource("RectangleShape2D_ix8et")
 
 [node name="Timer" type="Timer" parent="." unique_id=7462801]
 wait_time = 4.0
 one_shot = true
+
+[node name="ChairPosition" type="Marker2D" parent="." unique_id=1700784637]
+position = Vector2(70, 0)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
