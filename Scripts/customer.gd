@@ -117,45 +117,22 @@ func take_order() -> void:
 
 # Esta función la va a llamar la mesa cuando termine de comer
 func leave_restaurant() -> void:
-	# 1. Liberamos la mesa
-	if target_table != null:
-		target_table.is_occupied = false
-		target_table.has_customer_waiting = false
-		target_table.current_customer = null
-		target_table = null 
+	# Desvinculamos al cliente, pero dejamos que el mozo libere la mesa al limpiar
+	target_table = null 
 	
-	# 2. Apagamos todos los relojes
+	# Apagamos los relojes
 	waiting_for_order = false
 	waiting_for_food = false
 	
-	# 3. ACTIVAMOS EL MOVIMIENTO DE SALIDA
+	# Iniciamos la salida
 	current_state = CustomerState.LEAVING
-	nav_agent.target_position = spawn_position # Le decimos a dónde ir
+	nav_agent.target_position = spawn_position 
 	
-	# 4. Desactivamos colisiones para que no choque con otros clientes
+	# Lo volvemos fantasma para que no moleste
 	$CollisionShape2D.set_deferred("disabled", true)
 	nav_agent.avoidance_enabled = false
 	
 	print("El cliente está saliendo del restaurante...")
-	
-	current_state = CustomerState.LEAVING
-	nav_agent.target_position = spawn_position
-	nav_agent.avoidance_enabled = false
-	$CollisionShape2D.set_deferred("disabled", true)
-		
-	
-	current_state = CustomerState.LEAVING
-	$CollisionShape2D.set_deferred("disabled", true)
-	nav_agent.avoidance_enabled = false
-	nav_agent.target_position = spawn_position
-	
-	# Aseguramos que su cuerpo físico siga desactivado
-	$CollisionShape2D.set_deferred("disabled", true)
-	
-	# NUEVO: Apagamos su "campo de fuerza" para que no empuje a los que hacen fila
-	nav_agent.avoidance_enabled = false
-	
-	nav_agent.target_position = spawn_position
 	
 func receive_food() -> void:
 	waiting_for_food = false

@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://ctdhujtc4dcqy" path="res://Scripts/table.gd" id="1_4ppvu"]
 [ext_resource type="Texture2D" uid="uid://c4jgphhp6ev6f" path="res://Assets/Table.png" id="2_4ppvu"]
+[ext_resource type="Texture2D" uid="uid://b88en5v0hvfoc" path="res://Assets/DirtyPlate_Front.png" id="3_r4jc3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix8et"]
-size = Vector2(81, 86)
+size = Vector2(134, 127)
 
 [node name="Table" type="Area2D" unique_id=1328093088 groups=["Tables"]]
 z_index = 1
@@ -12,11 +13,11 @@ script = ExtResource("1_4ppvu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322717735]
 position = Vector2(1.5000019, 7.500002)
-scale = Vector2(0.56249994, 0.59027773)
+scale = Vector2(1, 1.05)
 texture = ExtResource("2_4ppvu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1245032086]
-position = Vector2(1.5, 7)
+position = Vector2(1, 8.5)
 shape = SubResource("RectangleShape2D_ix8et")
 
 [node name="Timer" type="Timer" parent="." unique_id=7462801]
@@ -24,7 +25,13 @@ wait_time = 4.0
 one_shot = true
 
 [node name="ChairPosition" type="Marker2D" parent="." unique_id=1700784637]
-position = Vector2(70, 0)
+position = Vector2(135, -1)
+
+[node name="DirtyDishSprite" type="Sprite2D" parent="." unique_id=1648042723]
+visible = false
+position = Vector2(31.000004, -9)
+scale = Vector2(0.47038335, 0.53936523)
+texture = ExtResource("3_r4jc3")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

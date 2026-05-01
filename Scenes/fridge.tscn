@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b7rq032gcv2hy"]
+
+[ext_resource type="Texture2D" uid="uid://bkbgwowgmdkse" path="res://Assets/refrigerador.png" id="1_4jc6q"]
+[ext_resource type="Script" uid="uid://devyhf36etlve" path="res://Scripts/fridge.gd" id="1_phxir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phxir"]
+size = Vector2(49, 82)
+
+[node name="Fridge" type="Area2D" unique_id=1144173516]
+script = ExtResource("1_phxir")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=169389458]
+scale = Vector2(0.16526389, 0.15999995)
+texture = ExtResource("1_4jc6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=160363132 groups=["Interactables"]]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_phxir")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

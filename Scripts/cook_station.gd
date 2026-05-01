@@ -23,7 +23,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 func interact(waiter: CharacterBody2D) -> void:
 	# El mesero DEJA una orden (No importa si la cocina ya está cocinando)
-	if waiter.actual_state == waiter.HandState.ORDER:
+	if waiter.actual_state == waiter.HandState.FOOD_ORDER:
 		print("Cocina recibe comanda. Añadida a la cola.")
 		
 		# Agregamos la orden (la mesa) al final de la lista

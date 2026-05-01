@@ -4,7 +4,7 @@ var active_table: Area2D = null
 @export var speed: float = 600.0
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
-enum HandState { EMPTY, ORDER, DISH_READY, DIRTY_DISH, DRINK }
+enum HandState { EMPTY, DRINK_ORDER, FOOD_ORDER, DISH_READY, DIRTY_DISH, DRINK }
 
 var actual_state: HandState = HandState.EMPTY
 
@@ -16,6 +16,13 @@ func _ready() -> void:
 	
 	nav_agent.path_desired_distance = 25.0
 	nav_agent.target_desired_distance = 25.0
+	
+func _process(_delta: float) -> void:
+	# Verificamos si el mozo tiene el plato sucio en la mano
+	if actual_state == HandState.DIRTY_DISH:
+		$HeldItem.visible = true
+	else:
+		$HeldItem.visible = false
 	
 func _unhandled_input(event: InputEvent) -> void:
 

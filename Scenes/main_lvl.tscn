@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bactpmiqnsluu" path="res://Scenes/door.tscn" id="8_k2kfd"]
 [ext_resource type="Texture2D" uid="uid://b4t2qhjpjay53" path="res://Assets/BG_Wall.png" id="9_yvhmh"]
 [ext_resource type="Texture2D" uid="uid://0567cu0hmao6" path="res://Assets/BG_Floorl.png" id="10_kwnot"]
+[ext_resource type="PackedScene" uid="uid://b7rq032gcv2hy" path="res://Scenes/fridge.tscn" id="11_kwnot"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -34,15 +35,15 @@ position = Vector2(654, 249)
 scale = Vector2(0.2, 0.2)
 
 [node name="Table" parent="." unique_id=1328093088 instance=ExtResource("3_b3ecl")]
-position = Vector2(748, 458)
+position = Vector2(227, 450)
 scale = Vector2(0.6, 0.6)
 
 [node name="Table2" parent="." unique_id=1178311839 instance=ExtResource("3_b3ecl")]
-position = Vector2(171, 457)
+position = Vector2(509, 453)
 scale = Vector2(0.6, 0.6)
 
 [node name="Table3" parent="." unique_id=305552928 instance=ExtResource("3_b3ecl")]
-position = Vector2(459.00003, 467.00003)
+position = Vector2(803, 449.00003)
 scale = Vector2(0.6, 0.6)
 
 [node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
@@ -73,11 +74,6 @@ offset_right = 909.0
 offset_bottom = 25.0
 text = "3:00"
 
-[node name="Door" parent="." unique_id=1822327672 instance=ExtResource("8_k2kfd")]
-top_level = true
-position = Vector2(38, 248)
-scale = Vector2(0.3, 0.3)
-
 [node name="CustomerSpawnTimer" type="Timer" parent="." unique_id=1239680232]
 wait_time = 15.0
 autostart = true
@@ -91,5 +87,13 @@ texture = ExtResource("9_yvhmh")
 position = Vector2(472.9445, 273.00003)
 scale = Vector2(1.0186343, 0.99259263)
 texture = ExtResource("10_kwnot")
+
+[node name="Door" parent="." unique_id=1822327672 instance=ExtResource("8_k2kfd")]
+top_level = true
+position = Vector2(39, 194)
+scale = Vector2(0.3, 0.3)
+
+[node name="Fridge" parent="." unique_id=1144173516 instance=ExtResource("11_kwnot")]
+position = Vector2(397, 231)
 
 [connection signal="timeout" from="CustomerSpawnTimer" to="." method="_on_customer_spawn_timer_timeout"]
