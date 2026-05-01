@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://en730fti0t1g" path="res://Scripts/robot_waiter.gd" id="1_x4a8y"]
 [ext_resource type="Texture2D" uid="uid://r3fornsh2qqg" path="res://Assets/Walter-Sheet-300.png" id="2_oewrc"]
+[ext_resource type="Texture2D" uid="uid://dw685nh3wgb2g" path="res://Assets/Walter_Ch_Back Order.png" id="2_ssr73"]
+[ext_resource type="Texture2D" uid="uid://cm3vpxaoa14ye" path="res://Assets/Walter_Ch_Iz1.png" id="3_8crw5"]
 [ext_resource type="Texture2D" uid="uid://b88en5v0hvfoc" path="res://Assets/DirtyPlate_Front.png" id="3_40yqy"]
+[ext_resource type="Texture2D" uid="uid://c5rp838vnhjax" path="res://Assets/Walter_Ch_Front Order.png" id="3_a8ycy"]
+[ext_resource type="Texture2D" uid="uid://fs73bqp3foho" path="res://Assets/Walter_Ch_Der1.png" id="4_a8ycy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oewrc"]
 size = Vector2(125, 76)
@@ -52,6 +56,11 @@ animations = [{
 
 [node name="RobotWaiter" type="CharacterBody2D" unique_id=640933614 groups=["Waiters"]]
 script = ExtResource("1_x4a8y")
+tex_walk_up = ExtResource("2_ssr73")
+tex_walk_down = ExtResource("3_a8ycy")
+tex_walk_left = ExtResource("3_8crw5")
+tex_walk_right = ExtResource("4_a8ycy")
+tex_dirty_dish = ExtResource("3_40yqy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=591466475]
 z_index = 1
@@ -59,6 +68,7 @@ position = Vector2(-0.5, 39)
 shape = SubResource("RectangleShape2D_oewrc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=923311250]
+visible = false
 position = Vector2(0, -1.0000001)
 scale = Vector2(1.4375, 1.4765624)
 sprite_frames = SubResource("SpriteFrames_a8ycy")
@@ -76,6 +86,9 @@ visible = false
 position = Vector2(62, 29)
 scale = Vector2(0.63999975, 0.59999967)
 texture = ExtResource("3_40yqy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2111723244]
+texture = ExtResource("3_a8ycy")
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

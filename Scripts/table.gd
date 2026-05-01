@@ -115,3 +115,18 @@ func seat_customer(customer_node: CharacterBody2D) -> void:
 	has_customer_waiting = true
 	current_customer = customer_node 
 	print("Mesa activada para nuevo cliente: ", customer_node.name)
+	
+func abandon_table() -> void:
+	is_occupied = false
+	has_customer_waiting = false
+	is_waiting_for_drink = false
+	needs_food_order = false
+	is_waiting_for_food = false
+	has_dirty_dish = false
+	current_customer = null
+	
+	# Si tenías el sprite del plato sucio, nos aseguramos de apagarlo por si acaso
+	if has_node("DirtyDishSprite"):
+		$DirtyDishSprite.visible = false
+		
+	print("El cliente se hartó y se fue. La mesa vuelve a estar 100% libre.")

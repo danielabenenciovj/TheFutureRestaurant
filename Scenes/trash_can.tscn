@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dp5urtlyxyecy"]
+
+[ext_resource type="Script" uid="uid://covenhc7tbku4" path="res://Scripts/trash_can.gd" id="1_t3ghh"]
+[ext_resource type="Texture2D" uid="uid://bpsg7kqtbcni5" path="res://Assets/divexfre-pixel-trash-can-9798640.png" id="1_yk8j1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3ghh"]
+size = Vector2(102, 121)
+
+[node name="TrashCan" type="Area2D" unique_id=1487292588]
+script = ExtResource("1_t3ghh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=172884759]
+scale = Vector2(0.0630428, 0.04287603)
+texture = ExtResource("1_yk8j1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1182615785]
+position = Vector2(1, 5.5)
+shape = SubResource("RectangleShape2D_t3ghh")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

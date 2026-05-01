@@ -43,12 +43,16 @@ func _physics_process(delta: float) -> void:
 	if waiting_for_order:
 		wait_timer += delta
 		if wait_timer >= max_wait_time:
+			if target_table != null:
+				target_table.abandon_table() # Le avisamos a la mesa que la abandonamos
 			leave_restaurant()
 			return
 
 	if waiting_for_food:
 		food_wait_timer += delta
 		if food_wait_timer >= max_food_wait_time:
+			if target_table != null:
+				target_table.abandon_table() # Le avisamos a la mesa que la abandonamos
 			leave_restaurant()
 			return
 

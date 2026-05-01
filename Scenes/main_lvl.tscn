@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b4t2qhjpjay53" path="res://Assets/BG_Wall.png" id="9_yvhmh"]
 [ext_resource type="Texture2D" uid="uid://0567cu0hmao6" path="res://Assets/BG_Floorl.png" id="10_kwnot"]
 [ext_resource type="PackedScene" uid="uid://b7rq032gcv2hy" path="res://Scenes/fridge.tscn" id="11_kwnot"]
+[ext_resource type="PackedScene" uid="uid://dp5urtlyxyecy" path="res://Scenes/trash_can.tscn" id="12_0i2lu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -22,6 +23,8 @@ script = ExtResource("1_44y1p")
 customer_scene = ExtResource("6_np6i8")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1203808199]
+position = Vector2(-27, 199.00002)
+scale = Vector2(1.0430411, 0.73204654)
 navigation_polygon = SubResource("NavigationPolygon_a3p8x")
 
 [node name="RobotWaiter" parent="." unique_id=640933614 instance=ExtResource("1_lija3")]
@@ -31,8 +34,8 @@ scale = Vector2(0.5, 0.5)
 
 [node name="CookStation" parent="." unique_id=2052939998 instance=ExtResource("2_8roya")]
 top_level = true
-position = Vector2(654, 249)
-scale = Vector2(0.2, 0.2)
+position = Vector2(653, 219)
+scale = Vector2(0.3, 0.3)
 
 [node name="Table" parent="." unique_id=1328093088 instance=ExtResource("3_b3ecl")]
 position = Vector2(227, 450)
@@ -48,8 +51,8 @@ scale = Vector2(0.6, 0.6)
 
 [node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
 top_level = true
-position = Vector2(876, 271)
-scale = Vector2(0.5, 0.5)
+position = Vector2(872, 216)
+scale = Vector2(0.6, 0.6)
 
 [node name="UIMoney-Timer" type="VisibleOnScreenEnabler2D" parent="." unique_id=1266363139 groups=["UI_GROUP"]]
 top_level = true
@@ -90,10 +93,15 @@ texture = ExtResource("10_kwnot")
 
 [node name="Door" parent="." unique_id=1822327672 instance=ExtResource("8_k2kfd")]
 top_level = true
-position = Vector2(39, 194)
-scale = Vector2(0.3, 0.3)
+position = Vector2(41, 187)
+scale = Vector2(0.4, 0.4)
 
 [node name="Fridge" parent="." unique_id=1144173516 instance=ExtResource("11_kwnot")]
-position = Vector2(397, 231)
+position = Vector2(399, 201.00002)
+scale = Vector2(1.2, 1.2)
+
+[node name="TrashCan" parent="." unique_id=1487292588 instance=ExtResource("12_0i2lu")]
+position = Vector2(558, 221)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="timeout" from="CustomerSpawnTimer" to="." method="_on_customer_spawn_timer_timeout"]
