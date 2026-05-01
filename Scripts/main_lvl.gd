@@ -30,3 +30,11 @@ func _on_door_ready_to_spawn(spawn_pos: Vector2) -> void:
 		add_child(new_customer)
 	else:
 		print("Error: No cargaste la escena del cliente en el Inspector.")
+		
+func stop_spawning_customers() -> void:
+	print("¡El tiempo se acabó! Cerrando las puertas...")
+	
+	# Cambiá "$SpawnTimer" por el nombre exacto del Timer que usás para 
+	# llamar a open_door() o instanciar a los clientes.
+	if has_node("CustomerSpawnTimer"):
+		$CustomerSpawnTimer.stop()

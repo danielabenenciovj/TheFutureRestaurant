@@ -20,7 +20,7 @@ vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 960, 0, 960, 480, 0, 480)])
 
-[node name="MainLVL" type="Node2D" unique_id=679171312]
+[node name="MainLVL" type="Node2D" unique_id=679171312 groups=["MainLevel"]]
 script = ExtResource("1_44y1p")
 customer_scene = ExtResource("6_np6i8")
 

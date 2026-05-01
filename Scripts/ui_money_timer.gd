@@ -19,6 +19,10 @@ func _After_One_Second():
 		Timer_Node.stop()
 		label_Watch.text = "00:00"
 		
+		var main_level = get_tree().get_first_node_in_group("MainLevel")
+		if main_level != null:
+			main_level.stop_spawning_customers()
+		
 func Update_Money():
 	label_Money.text = "Cash: $" + str(Money)
 	
