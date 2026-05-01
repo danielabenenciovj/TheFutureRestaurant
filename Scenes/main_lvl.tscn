@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://0567cu0hmao6" path="res://Assets/BG_Floorl.png" id="10_kwnot"]
 [ext_resource type="PackedScene" uid="uid://b7rq032gcv2hy" path="res://Scenes/fridge.tscn" id="11_kwnot"]
 [ext_resource type="PackedScene" uid="uid://dp5urtlyxyecy" path="res://Scenes/trash_can.tscn" id="12_0i2lu"]
+[ext_resource type="Texture2D" uid="uid://bm6wupun8ye3t" path="res://Assets/Drinks_Soda.png" id="12_74cth"]
+[ext_resource type="Texture2D" uid="uid://cw46fvdc33dhd" path="res://Assets/Drinks_Beer.png" id="13_3aewb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -24,7 +26,7 @@ customer_scene = ExtResource("6_np6i8")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1203808199]
 position = Vector2(-27, 199.00002)
-scale = Vector2(1.0430411, 0.73204654)
+scale = Vector2(1.0490279, 0.49799293)
 navigation_polygon = SubResource("NavigationPolygon_a3p8x")
 
 [node name="RobotWaiter" parent="." unique_id=640933614 instance=ExtResource("1_lija3")]
@@ -93,12 +95,13 @@ texture = ExtResource("10_kwnot")
 
 [node name="Door" parent="." unique_id=1822327672 instance=ExtResource("8_k2kfd")]
 top_level = true
-position = Vector2(41, 187)
-scale = Vector2(0.4, 0.4)
+position = Vector2(86, 230)
 
 [node name="Fridge" parent="." unique_id=1144173516 instance=ExtResource("11_kwnot")]
 position = Vector2(399, 201.00002)
 scale = Vector2(1.2, 1.2)
+tex_gaseosa = ExtResource("12_74cth")
+tex_cerveza = ExtResource("13_3aewb")
 
 [node name="TrashCan" parent="." unique_id=1487292588 instance=ExtResource("12_0i2lu")]
 position = Vector2(558, 221)

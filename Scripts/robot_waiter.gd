@@ -13,6 +13,8 @@ var active_table: Area2D = null
 @export var tex_dirty_dish: Texture2D
 @export var tex_drink_generic: Texture2D
 var current_item_texture: Texture2D = null
+var current_order_name: String = ""
+var current_drink_order: String = ""
 
 enum HandState { EMPTY, DRINK_ORDER, FOOD_ORDER, DISH_READY, DIRTY_DISH, DRINK }
 
@@ -49,11 +51,11 @@ func _process(_delta: float) -> void:
 	# 2. Mostramos u ocultamos el objeto según lo que tenga en la mano
 	match actual_state:
 		HandState.DIRTY_DISH:
-			$HeldItem.texture = tex_dirty_dish
+			$HeldItem.texture = current_item_texture 
 			$HeldItem.visible = true
 			
 		HandState.DRINK:
-			$HeldItem.texture = tex_drink_generic
+			$HeldItem.texture = current_item_texture 
 			$HeldItem.visible = true
 			
 		HandState.DISH_READY:

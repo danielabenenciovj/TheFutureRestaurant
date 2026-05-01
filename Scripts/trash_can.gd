@@ -3,6 +3,7 @@ extends Area2D
 # Podés cambiar de cuánto es la multa desde el Inspector
 @export var penalty_amount: int = 50 
 
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var waiters = get_tree().get_first_node_in_group("Waiters")

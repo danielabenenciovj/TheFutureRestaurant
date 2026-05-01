@@ -10,6 +10,13 @@ var waiting_for_order: bool = false
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var search_timer: float = 0.0
 
+var menu = ["empanadas", "locro", "choripan", "pizza"]
+var desired_dish: String = ""
+
+
+var drink_menu = ["gaseosa", "cerveza"]
+var desired_drink: String = ""
+
 enum CustomerState { LOOKING_FOR_TABLE, AT_TABLE, LEAVING }
 var current_state: CustomerState = CustomerState.LOOKING_FOR_TABLE
 
@@ -25,6 +32,8 @@ func _ready() -> void:
 	nav_agent.target_desired_distance = 25.0
 	
 	spawn_position = global_position 
+	desired_dish = menu.pick_random()
+	desired_drink = drink_menu.pick_random()
 	
 	call_deferred("find_empty_table")
 

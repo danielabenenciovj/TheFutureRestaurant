@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://ctdhujtc4dcqy" path="res://Scripts/table.gd" id="1_4ppvu"]
 [ext_resource type="Texture2D" uid="uid://c4jgphhp6ev6f" path="res://Assets/Table.png" id="2_4ppvu"]
+[ext_resource type="Texture2D" uid="uid://ndhwceult6hr" path="res://Assets/Couch1.png" id="3_0xndo"]
+[ext_resource type="Texture2D" uid="uid://cp10vv68mfulv" path="res://Assets/Cuenco_Dirty.png" id="3_5cpa6"]
 [ext_resource type="Texture2D" uid="uid://b88en5v0hvfoc" path="res://Assets/DirtyPlate_Front.png" id="3_r4jc3"]
+[ext_resource type="Texture2D" uid="uid://d0vx7jsmbvouw" path="res://Assets/Couch.png" id="5_xqsq7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ix8et"]
 size = Vector2(134, 127)
@@ -10,10 +13,13 @@ size = Vector2(134, 127)
 [node name="Table" type="Area2D" unique_id=1328093088 groups=["Tables"]]
 z_index = 1
 script = ExtResource("1_4ppvu")
+tex_dirty_generic = ExtResource("3_r4jc3")
+tex_dirty_locro = ExtResource("3_5cpa6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322717735]
-position = Vector2(1.5000019, 7.500002)
-scale = Vector2(1, 1.05)
+z_index = 2
+position = Vector2(1, 6.000004)
+scale = Vector2(0.3, 0.315)
 texture = ExtResource("2_4ppvu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1245032086]
@@ -25,13 +31,34 @@ wait_time = 4.0
 one_shot = true
 
 [node name="ChairPosition" type="Marker2D" parent="." unique_id=1700784637]
-position = Vector2(135, -1)
+position = Vector2(106, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ChairPosition" unique_id=19793510]
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_0xndo")
 
 [node name="DirtyDishSprite" type="Sprite2D" parent="." unique_id=1648042723]
 visible = false
+z_index = 2
 position = Vector2(31.000004, -9)
 scale = Vector2(0.47038335, 0.53936523)
 texture = ExtResource("3_r4jc3")
+
+[node name="FoodDishSprite" type="Sprite2D" parent="." unique_id=763505796]
+visible = false
+z_index = 2
+position = Vector2(31.000004, -9)
+scale = Vector2(0.47038335, 0.53936523)
+
+[node name="Couch" type="Sprite2D" parent="." unique_id=1979701215]
+position = Vector2(-106, 3)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_xqsq7")
+
+[node name="DrinkSprite" type="Sprite2D" parent="." unique_id=1333907270]
+z_index = 2
+position = Vector2(-13, -23)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

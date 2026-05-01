@@ -1,5 +1,8 @@
 extends Area2D
 
+@export var tex_gaseosa: Texture2D
+@export var tex_cerveza: Texture2D
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var waiters = get_tree().get_first_node_in_group("Waiters")
@@ -11,12 +14,16 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 func interact(waiter: CharacterBody2D) -> void:
 	# Si el mozo viene con un pedido de bebida, la heladera se la da al instante
 	if waiter.actual_state == waiter.HandState.DRINK_ORDER:
-		print("Heladera: Bebida lista.")
+		print("Heladera entrega: ", waiter.current_drink_order)
 		
 		# Cambiamos lo que tiene en las manos
 		waiter.actual_state = waiter.HandState.DRINK
-		
-		# IMPORTANTE: NO borramos waiter.active_table porque el mozo 
-		# todavía necesita recordar a qué mesa llevarle esta bebida.
+		waiter.current_item_texture = get_texture_for_drink(waiter.current_drink_order)
+		waiter.current_drink_order = ""
 	else:
 		print("Acción no válida en la heladera.")
+func get_texture_for_drink(drink_name: String) -> Texture2D:
+	match drink_name:
+		"gaseosa": return tex_gaseosa
+		"cerveza": return tex_cerveza
+	return null
