@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="The Future Restaurant"
-run/main_scene="uid://bp5qcmcdu1bh6"
+run/main_scene="uid://dmrl5gigqlng8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://bp102laqk7k8v"
 
 [display]
 
@@ -27,6 +31,7 @@ Waiters=""
 Tables=""
 Interactables=""
 MainLevel=""
+Customers=""
 
 [physics]
 

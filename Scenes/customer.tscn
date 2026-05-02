@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0v30w"]
 size = Vector2(22, 24)
 
-[node name="Customer" type="CharacterBody2D" unique_id=1557506072]
+[node name="Customer" type="CharacterBody2D" unique_id=1557506072 groups=["Customers"]]
 z_index = 1
 script = ExtResource("1_fp685")
 

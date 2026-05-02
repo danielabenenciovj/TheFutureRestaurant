@@ -68,6 +68,11 @@ func _physics_process(delta: float) -> void:
 	# 2. LÓGICA DE SALIDA (Si ya llegó a la puerta, desaparece)
 	if current_state == CustomerState.LEAVING:
 		if global_position.distance_to(spawn_position) < 60.0:
+			
+			var main_level = get_tree().get_first_node_in_group("MainLevel")
+			if main_level:
+				main_level.check_end_of_day()
+				
 			queue_free()
 			return
 	
@@ -114,12 +119,6 @@ func _on_navigation_agent_2d_navigation_finished() -> void:
 		
 				nav_agent.avoidance_enabled = false
 		
-		# Le avisa a la mesa que llegó y le pasa su propia referencia (self)
-				target_table.seat_customer(self) 
-		
-		elif current_state == CustomerState.LEAVING:
-			queue_free()
-			
 func take_order() -> void:
 	waiting_for_order = false
 	wait_timer = 0.0

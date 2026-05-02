@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://dmrl5gigqlng8"]
+
+[ext_resource type="Script" uid="uid://b4cgclaqyo53v" path="res://Scripts/day_summary_ui.gd" id="1_b38x6"]
+[ext_resource type="Texture2D" uid="uid://bm6wupun8ye3t" path="res://Assets/Drinks_Soda.png" id="2_o86rh"]
+[ext_resource type="Texture2D" uid="uid://cw46fvdc33dhd" path="res://Assets/Drinks_Beer.png" id="3_hiep2"]
+
+[node name="DaySummaryUI" type="CanvasLayer" unique_id=2121410386]
+script = ExtResource("1_b38x6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=871594994]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.002004, 0.99657214)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0, 0, 0, 0.27450982)
+
+[node name="Panel" type="Panel" parent="." unique_id=710229609]
+offset_left = 166.0
+offset_top = 43.000004
+offset_right = 766.0
+offset_bottom = 537.9699
+scale = Vector2(0.9916743, 0.9172274)
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1097135661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.270727
+offset_bottom = 37.72928
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.004659, 0.9517521)
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=200460720]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1515909305]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="DrinksContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=121483709]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnGaseosa" type="Button" parent="Panel/VBoxContainer/DrinksContainer" unique_id=1362349780]
+layout_mode = 2
+text = "Gaseosa"
+icon = ExtResource("2_o86rh")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="BtnCerveza" type="Button" parent="Panel/VBoxContainer/DrinksContainer" unique_id=1772630250]
+layout_mode = 2
+text = "Cerveza"
+icon = ExtResource("3_hiep2")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="BtnUpgrade" type="Button" parent="Panel/VBoxContainer" unique_id=750189425]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="BtnNextDay" type="Button" parent="Panel/VBoxContainer" unique_id=614622480]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[connection signal="pressed" from="Panel/VBoxContainer/DrinksContainer/BtnGaseosa" to="." method="_on_btn_gaseosa_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DrinksContainer/BtnCerveza" to="." method="_on_btn_cerveza_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/BtnUpgrade" to="." method="_on_btn_upgrade_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/BtnNextDay" to="." method="_on_btn_next_day_pressed"]

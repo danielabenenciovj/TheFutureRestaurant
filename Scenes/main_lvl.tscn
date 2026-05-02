@@ -14,6 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://dp5urtlyxyecy" path="res://Scenes/trash_can.tscn" id="12_0i2lu"]
 [ext_resource type="Texture2D" uid="uid://bm6wupun8ye3t" path="res://Assets/Drinks_Soda.png" id="12_74cth"]
 [ext_resource type="Texture2D" uid="uid://cw46fvdc33dhd" path="res://Assets/Drinks_Beer.png" id="13_3aewb"]
+[ext_resource type="PackedScene" uid="uid://cvlca8jkshsjh" path="res://Scenes/delivery_bar.tscn" id="15_3aewb"]
+[ext_resource type="Texture2D" uid="uid://cavbh4lpx01po" path="res://Assets/Empanadas.png" id="16_ijwju"]
+[ext_resource type="Texture2D" uid="uid://jr3uxyb8uq0e" path="res://Assets/Cuenco_Locro.png" id="17_u3lfo"]
+[ext_resource type="Texture2D" uid="uid://6537xw4enil7" path="res://Assets/Choripan1.png" id="18_ly8os"]
+[ext_resource type="Texture2D" uid="uid://cin8ymvy414gy" path="res://Assets/Pizza.png" id="19_jyfyv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a3p8x"]
 vertices = PackedVector2Array(950, 470, 10, 470, 10, 10, 950, 10)
@@ -26,7 +31,7 @@ customer_scene = ExtResource("6_np6i8")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1203808199]
 position = Vector2(-27, 199.00002)
-scale = Vector2(1.0490279, 0.49799293)
+scale = Vector2(1.0472392, 0.62425333)
 navigation_polygon = SubResource("NavigationPolygon_a3p8x")
 
 [node name="RobotWaiter" parent="." unique_id=640933614 instance=ExtResource("1_lija3")]
@@ -34,21 +39,34 @@ z_index = 1
 position = Vector2(287, 300)
 scale = Vector2(0.5, 0.5)
 
-[node name="CookStation" parent="." unique_id=2052939998 instance=ExtResource("2_8roya")]
+[node name="CookStation" parent="." unique_id=2052939998 node_paths=PackedStringArray("delivery_bar") instance=ExtResource("2_8roya")]
 top_level = true
 position = Vector2(653, 219)
 scale = Vector2(0.3, 0.3)
+delivery_bar = NodePath("../DeliveryBar")
 
 [node name="Table" parent="." unique_id=1328093088 instance=ExtResource("3_b3ecl")]
-position = Vector2(227, 450)
+position = Vector2(106.00001, 342.00003)
 scale = Vector2(0.6, 0.6)
 
 [node name="Table2" parent="." unique_id=1178311839 instance=ExtResource("3_b3ecl")]
-position = Vector2(509, 453)
+position = Vector2(105, 464.00003)
 scale = Vector2(0.6, 0.6)
 
 [node name="Table3" parent="." unique_id=305552928 instance=ExtResource("3_b3ecl")]
-position = Vector2(803, 449.00003)
+position = Vector2(409, 379)
+scale = Vector2(0.6, 0.6)
+
+[node name="Table4" parent="." unique_id=372296642 instance=ExtResource("3_b3ecl")]
+position = Vector2(408, 483)
+scale = Vector2(0.6, 0.6)
+
+[node name="Table5" parent="." unique_id=1951655801 instance=ExtResource("3_b3ecl")]
+position = Vector2(725, 383.00003)
+scale = Vector2(0.6, 0.6)
+
+[node name="Table6" parent="." unique_id=160084738 instance=ExtResource("3_b3ecl")]
+position = Vector2(725, 486)
 scale = Vector2(0.6, 0.6)
 
 [node name="CleaningStation" parent="." unique_id=70017856 instance=ExtResource("4_ny0fp")]
@@ -106,5 +124,12 @@ tex_cerveza = ExtResource("13_3aewb")
 [node name="TrashCan" parent="." unique_id=1487292588 instance=ExtResource("12_0i2lu")]
 position = Vector2(558, 221)
 scale = Vector2(0.5, 0.5)
+
+[node name="DeliveryBar" parent="." unique_id=618199184 instance=ExtResource("15_3aewb")]
+position = Vector2(554, 276)
+tex_empanadas = ExtResource("16_ijwju")
+tex_locro = ExtResource("17_u3lfo")
+tex_choripan = ExtResource("18_ly8os")
+tex_pizza = ExtResource("19_jyfyv")
 
 [connection signal="timeout" from="CustomerSpawnTimer" to="." method="_on_customer_spawn_timer_timeout"]

@@ -23,10 +23,11 @@ func interact(waiter: CharacterBody2D) -> void:
 		waiter.active_table = null 
 		
 		# 2. Aplicamos la multa buscando la UI
+		Global.money -= penalty_amount
+		Global.daily_profit -= penalty_amount # Opcional: para que veas la pérdida en el resumen
+		
 		var ui = get_tree().get_first_node_in_group("UI_GROUP")
-		if ui: 
-			# Pasamos el número en negativo para que reste
-			ui.Add_Money(-penalty_amount)
+		if ui: ui.Update_Money()
 			
 	# Opcional: Permitirle tirar platos sucios por si se traba, pero sin multa
 	elif waiter.actual_state == waiter.HandState.DIRTY_DISH:

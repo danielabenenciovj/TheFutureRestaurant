@@ -24,7 +24,9 @@ func _After_One_Second():
 			main_level.stop_spawning_customers()
 		
 func Update_Money():
-	label_Money.text = "Cash: $" + str(Money)
+	# Ahora lee directamente de Global
+	label_Money.text = "Cash: $" + str(Global.money)
+	
 	
 func Update_Timer():
 	var Mins = GlobalSeconds / 60

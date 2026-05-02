@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cvlca8jkshsjh"]
+
+[ext_resource type="Script" uid="uid://baqf5b1w38weq" path="res://Scripts/delivery_bar.gd" id="1_ntye0"]
+[ext_resource type="Texture2D" uid="uid://bup8y0a1l8ih1" path="res://Assets/Barra.png" id="2_5prsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5prsg"]
+size = Vector2(490, 122)
+
+[node name="DeliveryBar" type="Area2D" unique_id=618199184]
+script = ExtResource("1_ntye0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=571239681]
+position = Vector2(3, 1)
+shape = SubResource("RectangleShape2D_5prsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1586834649]
+scale = Vector2(0.2547757, 0.21112622)
+texture = ExtResource("2_5prsg")
+
+[node name="DishesVisuals" type="HBoxContainer" parent="." unique_id=100454327]
+offset_left = -240.0
+offset_top = -21.0
+offset_right = -200.0
+offset_bottom = 19.0
+scale = Vector2(1.0935261, 1)
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

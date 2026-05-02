@@ -20,6 +20,18 @@ var current_customer: CharacterBody2D = null
 
 var served_dish: String = ""
 
+var consumed_food: String = ""
+var consumed_drink: String = ""
+
+var menu_prices = {
+	"pizza": 50,      # Rápida, barata
+	"empanadas": 80,  
+	"choripan": 100,   
+	"locro": 150,     # Lenta, cara
+	"gaseosa": 15,    # (Te costó 5, ganás 10)
+	"cerveza": 25     # (Te costó 10, ganás 15)
+}
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		
@@ -35,7 +47,6 @@ func interact(waiter: CharacterBody2D) -> void:
 	if has_dirty_dish and waiter.actual_state == waiter.HandState.EMPTY:
 		print("Mesero recogió el plato sucio.")
 		waiter.actual_state = waiter.HandState.DIRTY_DISH
-		
 		waiter.current_item_texture = dirty_dish_sprite.texture
 		
 		dirty_dish_sprite.visible = false
@@ -44,9 +55,29 @@ func interact(waiter: CharacterBody2D) -> void:
 		has_customer_waiting = false
 		is_waiting_for_food = false
 		current_customer = null 
+	
+# --- NUEVO: CALCULAMOS EL PAGO ---
+		var total_payment = 0
+		
+		if menu_prices.has(consumed_food):
+			total_payment += menu_prices[consumed_food]
+			
+		# Chequeamos la bebida (porque podría no haberla recibido si se enojó, o haber tomado cerveza)
+		if menu_prices.has(consumed_drink):
+			total_payment += menu_prices[consumed_drink]
+			
+		print("El cliente pagó: $", total_payment)
+		
+		Global.money += total_payment
+		Global.daily_profit += total_payment
+		Global.total_orders_today += 1
+	
+		consumed_food = ""
+		consumed_drink = ""
 		
 		var ui = get_tree().get_first_node_in_group("UI_GROUP")
-		if ui: ui.Add_Money(100)
+		if ui: ui.Update_Money()
+		
 		return
 
 	# 2. Tomar orden de BEBIDA
@@ -68,6 +99,10 @@ func interact(waiter: CharacterBody2D) -> void:
 		
 		drink_sprite.texture = waiter.current_item_texture
 		drink_sprite.visible = true
+		
+		if current_customer != null:
+			consumed_drink = current_customer.desired_drink
+		
 		
 		waiter.actual_state = waiter.HandState.EMPTY
 		waiter.active_table = null
@@ -100,6 +135,8 @@ func interact(waiter: CharacterBody2D) -> void:
 		
 		food_dish_sprite.texture = waiter.current_item_texture
 		food_dish_sprite.visible = true
+		
+		consumed_food = served_dish
 		
 		waiter.actual_state = waiter.HandState.EMPTY
 		waiter.active_table = null 

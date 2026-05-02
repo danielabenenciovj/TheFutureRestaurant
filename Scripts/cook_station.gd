@@ -1,21 +1,15 @@
 extends Area2D
 
-@export var tex_empanadas: Texture2D
-@export var tex_locro: Texture2D
-@export var tex_choripan: Texture2D
-@export var tex_pizza: Texture2D
-
 @onready var cook_timer: Timer = $Timer
-@onready var ready_food_sprite: Sprite2D = $ReadyFoodSprite
+
+# Ahora conectamos la barra desde el Inspector
+@export var delivery_bar: Area2D
 
 var is_cooking: bool = false
-var is_food_ready: bool = false
 
-# Ahora la cola guarda Diccionarios con la mesa y el nombre del plato
+# La cola sigue usando tu sistema de Diccionarios
 var orders_queue: Array[Dictionary] = []
-
-var table_waiting_for_this_dish: Area2D = null
-var current_cooking_dish: String = ""
+var current_cooking_order: Dictionary = {}
 
 # Configurador de tiempos (en segundos)
 var cook_times = {
@@ -50,49 +44,33 @@ func interact(waiter: CharacterBody2D) -> void:
 		
 		check_and_cook()
 		
-	# RETIRAR PLATO LISTO
-	elif waiter.actual_state == waiter.HandState.EMPTY and is_food_ready:
-		waiter.actual_state = waiter.HandState.DISH_READY
-		waiter.active_table = table_waiting_for_this_dish
-		waiter.current_item_texture = get_texture_for_dish(current_cooking_dish)
-	
-		waiter.current_order_name = current_cooking_dish 
-		
-		is_food_ready = false
-		table_waiting_for_this_dish = null 
-		current_cooking_dish = ""
-		ready_food_sprite.visible = false
-		check_and_cook()
+	# Eliminamos el bloque "RETIRAR PLATO LISTO" de acá, porque ahora se retira en la barra.
 
 func check_and_cook() -> void:
-	if is_cooking or is_food_ready or orders_queue.size() == 0:
+	# Si ya está cocinando o no hay fila, no hacemos nada
+	if is_cooking or orders_queue.size() == 0:
 		return
 		
-	var next_order = orders_queue.pop_front()
-	table_waiting_for_this_dish = next_order["table"]
-	current_cooking_dish = next_order["dish"]
+	# Sacamos el primer pedido de la fila
+	current_cooking_order = orders_queue.pop_front()
+	var dish_name = current_cooking_order["dish"]
 	
 	is_cooking = true
 	# Asignamos el tiempo específico para este plato
-	cook_timer.wait_time = cook_times[current_cooking_dish]
+	cook_timer.wait_time = cook_times[dish_name]
 	cook_timer.start()
-	print("Cocinando ", current_cooking_dish, " por ", cook_timer.wait_time, " segs.")
+	print("Cocinando ", dish_name, " por ", cook_timer.wait_time, " segs.")
 
 func _on_timer_timeout() -> void:
 	is_cooking = false
-	is_food_ready = true
+	var dish_name = current_cooking_order["dish"]
+	print("¡", dish_name, " listo! Enviando a la barra...")
 	
-	# Mostramos el asset correspondiente sobre la barra
-	ready_food_sprite.texture = get_texture_for_dish(current_cooking_dish)
-	ready_food_sprite.visible = true
+	# Le mandamos el diccionario entero a la barra
+	if delivery_bar != null:
+		delivery_bar.add_dish(current_cooking_order)
+	else:
+		print("ERROR: No asignaste la DeliveryBar en el Inspector de la Cocina.")
 	
-	print("¡", current_cooking_dish, " listo!")
-
-# Función auxiliar para convertir el texto en la imagen correcta
-func get_texture_for_dish(dish_name: String) -> Texture2D:
-	match dish_name:
-		"empanadas": return tex_empanadas
-		"locro": return tex_locro
-		"choripan": return tex_choripan
-		"pizza": return tex_pizza
-	return null
+	# Automáticamente empezamos a cocinar el siguiente si hay fila
+	check_and_cook()
